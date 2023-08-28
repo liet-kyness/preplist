@@ -24,5 +24,9 @@ VALUES ('She-Crab Soup',
        ('Ginger Vinagrette',
         'In a blender, add ginger, honey, and xanthan gum. Buzz until smooth. With blender at high speed, SLOWLY add oil to emulsify.');
 
--- INSERT INTO recipe_ingredient (recipe_id, ingredient_id, )
+INSERT INTO unit (name)
+VALUES ('tsp'), ('oz'), ('qt'), ('gal'), ('#10 can'), ('ea'), ('stalks');
+
+INSERT INTO recipe_ingredient (recipe_id, ingredient_id, unit_id, amount)
+VALUES (1, 3, 6, 2), (1, 9, 6, 4), (1, 10, 7, 6);
 

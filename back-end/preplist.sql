@@ -1,5 +1,5 @@
 \echo 'Drop and create preplist database?'
-\prompt '//[RETURN] YES // [CTRL + C] CANCEL//'
+\prompt '//[RETURN] YES // [CTRL + C] CANCEL//' foo
 
 DROP DATABASE preplist;
 CREATE DATABASE preplist;
