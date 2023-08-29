@@ -17,6 +17,7 @@ app.use(authenticateJWT);
 
 app.use("/users", userRoutes);
 app.use("/recipes", recipeRoutes);
+app.use("/", recipeRoutes)
 
 app.use(function(req, res, next) {
     return next(new NotFoundError());

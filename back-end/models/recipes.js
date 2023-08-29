@@ -1,7 +1,7 @@
 "use strict";
 
 const db = require("../db");
-const { mapRowsToNestedData } = require("../helpers/map");
+//const { mapData } = require("../helpers/map");
 const { NotFoundError, BadRequestError } = require("../expressError");
 
 class Recipe {
@@ -11,7 +11,7 @@ class Recipe {
     
     static async getAll() {
         const result = await db.query(
-            `SELECT name, instruction
+            `SELECT id, name, instruction
              FROM recipe
              ORDER BY name`
         );
@@ -33,7 +33,7 @@ class Recipe {
 
     static async getRecipe(id) {
         const recipeRes = await db.query(
-            `SELECT recipe.*,
+            `SELECT recipe.name, recipe.instruction,
             recipe_ingredient.amount,
             unit.name AS unit_name,
             unit.id AS unit_id,
@@ -42,9 +42,9 @@ class Recipe {
             LEFT JOIN recipe_ingredient ON recipe.id = recipe_ingredient.recipe_id
             LEFT JOIN ingredient ON ingredient.id = recipe_ingredient.ingredient_id
             LEFT JOIN unit ON unit.id = unit_id
-            WHERE recipe.id = $1`, [id]
+            WHERE recipe.id = $1`, [id],
         );
-        return mapRowsToNestedData(recipeRes.rows);
+        return mapData(recipeRes.rows);
     }
 
     //Ingredient Stuff //
@@ -83,8 +83,26 @@ class Recipe {
         
         return res;
     }
-
-
 }
+function mapData(rows) {
+    const { id, name, instruction } = rows[0];
+    const recipe = { id, name, instruction };
+
+    rows.forEach((row) => {
+        if (!recipe.ingredient) {
+            recipe.ingredient = [];
+        }
+        recipe.ingredient.push({
+            unit: {
+                id: row.unit_id,
+                name: row.unit_name,
+            },
+            amount: row.amount,
+            ingredient: row.ingredient,
+        });
+    });
+
+    return recipe;
+};
 
 module.exports = Recipe;

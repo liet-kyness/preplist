@@ -1,4 +1,4 @@
-function mapRowsToNestedData(rows) {
+function mapData(rows) {
     const { id, name, instruction } = rows[0];
     const recipe = { id, name, instruction };
 
@@ -8,8 +8,8 @@ function mapRowsToNestedData(rows) {
         }
         recipe.ingrerdient.push({
             unit: {
-                id: row.unit_id,
-                name: row. unit_name,
+                id: row.unit.id,
+                name: row.unit.name,
             },
             amount: row.amount,
             ingredient: row.ingredient,
@@ -17,6 +17,6 @@ function mapRowsToNestedData(rows) {
     });
 
     return recipe;
-}
+};
 
-module.exports = mapRowsToNestedData;
+module.exports = mapData;
