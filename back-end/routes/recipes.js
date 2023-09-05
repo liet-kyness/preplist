@@ -14,7 +14,7 @@ const router = new express.Router();
 
 router.post("/", ensureLoggedIn, async (req, res, next) => {
     try {
-        const validator = jsonschema.validadte(req.body, recipeNewSchema);
+        const validator = jsonschema.validate(req.body, recipeNewSchema);
         if (!validator.valid) {
             const errs = validator.errors.map(e => e.stack);
             throw new BadRequestError(errs);

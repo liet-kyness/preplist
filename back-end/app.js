@@ -5,6 +5,7 @@ const cors = require("cors");
 const { authenticateJWT } = require("./middleware/auth");
 const userRoutes = require("./routes/users");
 const recipeRoutes = require("./routes/recipes");
+const authRoutes = require("./routes/auth")
 const { NotFoundError } = require("./expressError");
 const morgan = require("morgan");
 
@@ -17,7 +18,7 @@ app.use(authenticateJWT);
 
 app.use("/users", userRoutes);
 app.use("/recipes", recipeRoutes);
-app.use("/", recipeRoutes)
+app.use("/auth", authRoutes)
 
 app.use(function(req, res, next) {
     return next(new NotFoundError());

@@ -87,6 +87,17 @@ class User {
         delete user.password;
         return user;
     }
+
+    static async get(username) {
+        const userRes = await db.query(
+            `SELECT username,
+                    first_name AS "firstName",
+                    last_name AS "lastName"
+                FROM users
+                WHERE username = $1`,
+                [username]
+        );
+    }
 }
 
 module.exports = User;

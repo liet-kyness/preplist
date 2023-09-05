@@ -1,7 +1,6 @@
 "use strict";
 
 const db = require("../db");
-//const { mapData } = require("../helpers/map");
 const { NotFoundError, BadRequestError } = require("../expressError");
 
 class Recipe {
@@ -84,6 +83,9 @@ class Recipe {
         return res;
     }
 }
+
+//function to add ingredients to a recipe
+
 function mapData(rows) {
     const { id, name, instruction } = rows[0];
     const recipe = { id, name, instruction };

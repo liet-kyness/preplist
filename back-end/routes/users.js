@@ -11,7 +11,7 @@ const userUpdateSchema = require("../schemas/userUpdate.json");
 
 const router = express.Router();
 
-router.post("/", ensureLoggedIn, async (req, res, next) => {
+router.post("/", async (req, res, next) => {
     try {
         const validator = jsonschema.validate(req.body, userNewSchema);
         if (!validator.valid) {
@@ -26,10 +26,19 @@ router.post("/", ensureLoggedIn, async (req, res, next) => {
     }
 });
 
-router.get("/", ensureLoggedIn, async (req, res, next) => {
+router.get("/", async (req, res, next) => {
     try {
         const users = await User.findAll();
         return res.json({ users });
+    } catch (err) {
+        return next(err);
+    }
+});
+
+router.get("/:username", async function(req, res, next) {
+    try {
+        const user = await User.get(req.params.username);
+        return res.json({ user });
     } catch (err) {
         return next(err);
     }

@@ -19,16 +19,36 @@ class PrepListApi {
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    }
+    };
+
+    static async getRecipes(name) {
+        let res = await this.request("recipes", { name });
+        return res.recipe;
+    };
 
     static async getRecipe(id) {
-        let res = await this.request('/recipes/${id}');
+        let res = await this.request(`/recipes/${id}`);
         return res.recipe;
-    }
+    };
 
     static async getCurrentUser(username) {
         let res = await this.request(`users/${username}`);
         return res.user;
+    };
+
+    static async signup(data) {
+        let res = await this.request(`auth/register`, data, "post");
+        return res.token;
+    };
+
+    static async login(data) {
+        let res = await this.request(`auth/token`, data, "post");
+        return res.token;
+    };
+
+    static async getIngredients(name) {
+        let res = await this.request("ingredients", { name });
+        return res.name;
     }
 };
 

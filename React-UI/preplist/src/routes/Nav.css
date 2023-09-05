@@ -1,0 +1,9 @@
+.Nav {
+    background-color: azure;
+    border-bottom: 2px solid darkslategray;
+}
+
+.nav-link.active {
+    font-weight: bold;
+    color: darkslategrey;
+}
