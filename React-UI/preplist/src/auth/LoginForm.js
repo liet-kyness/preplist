@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import PrepListApi from "../api/api";
 
 function LoginForm({ login }) {
     const history = useHistory();
@@ -13,12 +12,12 @@ function LoginForm({ login }) {
         "LoginForm",
         "login=", typeof login,
         "formData=", formData,
-        "formErrors=", formErrors
+        "formErrors=", formErrors        
     );
 
     async function handleSubmit(evt) {
         evt.preventDefault();
-        let result = await PrepListApi.login(formData);
+        let result = await login(formData);
         if (result.success) {
             history.push('/recipes');
         } else {
