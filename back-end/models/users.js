@@ -97,6 +97,9 @@ class User {
                 WHERE username = $1`,
                 [username]
         );
+        const user = userRes.rows[0];
+        if (!user) throw new NotFoundError(`${username} not found`);
+        return user;
     }
 }
 
