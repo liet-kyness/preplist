@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PrepListApi from "../api/api";
 import LoadingSpinner from "../common/Loading";
-import IngredientCardList from "../ingredient/IngredientCardList";
+//import IngredientCardList from "../ingredient/IngredientCardList";
 
 function RecipeDetail() {
     const { id } = useParams();
@@ -29,7 +29,7 @@ function RecipeDetail() {
         <div className="RecipeDetail col-md-8 offset-md-2">
             <h4>{recipe.name}</h4>
             <p>{recipe.instruction}</p>
-            <IngredientCardList ingredient={recipe.ingredient} />
+            {/* <IngredientCardList ingredient={recipe.ingredient} /> */}
         </div>
     );
 }

@@ -27,7 +27,8 @@ class PrepListApi {
     };
 
     static async getRecipe(id) {
-        let res = await this.request(`/recipes/${id}`);
+        let res = await this.request(`recipes/${id}`);
+        console.log(res);
         return res.recipe;
     };
 
