@@ -12,7 +12,7 @@ function IngredientCardList({ ingredient }) {
             {ingredient.map(i => (
                 <IngredientCard key={i.id}
                                 id={i.id}
-                                name={i.name}
+                                ingredient={i.ingredient}
                 />
             ))}
         </div>
