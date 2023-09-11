@@ -13,6 +13,8 @@ function IngredientCardList({ ingredient }) {
                 <IngredientCard key={i.id}
                                 id={i.id}
                                 ingredient={i.ingredient}
+                                amount={i.amount}
+                                unit={i.unit}
                 />
             ))}
         </div>
