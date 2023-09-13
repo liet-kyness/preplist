@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import PrepListApi from "../api/api";
 import LoadingSpinner from "../common/Loading";
 import IngredientCardList from "../ingredient/IngredientCardList";
+import NewIngredientForm from "../ingredient/NewIngredientForm";
+import NewRecipeForm from "./NewRecipeForm";
 
 function RecipeDetail() {
     const { id } = useParams();
@@ -30,6 +32,8 @@ function RecipeDetail() {
             <h4>{recipe.name}</h4>
             <p>{recipe.instruction}</p>
             <IngredientCardList ingredient={recipe.ingredient} />
+            <NewIngredientForm />
+            <NewRecipeForm />
         </div>
     );
 }

@@ -8,6 +8,7 @@ const recipeRoutes = require("./routes/recipes");
 const authRoutes = require("./routes/auth")
 const { NotFoundError } = require("./expressError");
 const morgan = require("morgan");
+const ingredientRoutes = require("./routes/ingredients");
 
 const app = express();
 
@@ -18,7 +19,8 @@ app.use(authenticateJWT);
 
 app.use("/users", userRoutes);
 app.use("/recipes", recipeRoutes);
-app.use("/auth", authRoutes)
+app.use("/auth", authRoutes);
+app.use("/ingredients", ingredientRoutes);
 
 app.use(function(req, res, next) {
     return next(new NotFoundError());

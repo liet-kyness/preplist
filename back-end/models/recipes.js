@@ -59,25 +59,30 @@ class Recipe {
 
     static async getIngredients(name) {
         const res = await db.query(
-            `SELECT *
-             FROM ingredient
+            `SELECT * FROM ingredient
              WHERE name = ANY($1::text[])`,
-             [name],
+             [name]
         );
 
-        return res;
-    }
+        return res.rows;
+    };
 
-    static async addIngredientToRecipe(data) {
+    static async getAllUnits() {
+        const res = await db.query(
+            `SELECT id, name
+            FROM unit`
+        );
+
+        return res.rows;
+    };
+
+    static async addIngredientToRecipe(recipeId, ingredientId, unitId, amount) {
         data.unit_id = data.unit_id.map((u) => u || null);
         const res = await db.query(
-            `INSET INTO recipe_ingredient (recipe_id, ingredient_id, unit_id, amount)
-             VALUES = $1, $2, $3, $4`,
+            `INSERT INTO recipe_ingredient (recipe_id, ingredient_id, unit_id, amount)
+             SELECT * FROM UNNEST ($1::int[], $2::int[], $3::int[], $4::int[])`,
              [
-                data.recipe_id,
-                data.ingredient_id,
-                data.unit_id,
-                data.amount,
+                recipeId, ingredientId, unitId, amount
              ]);
         
         return res;

@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import UserContext from "../auth/UserContext";
-//import "./Nav.css";
+import "./Nav.css";
+import "../api/pearl_logo.png";
 
 function Nav({ logout }) {
     const { currentUser } = useContext(UserContext);
