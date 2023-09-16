@@ -25,6 +25,16 @@ router.post("/new", async (req, res, next) => {
     }
 });
 
+router.get("/", async (req, res, next) => {
+    const q = req.query;
+    try {
+        const ingredient = await Ingredient.getIngredients(q);
+        return res.json({ ingredient });
+    } catch(err) {
+        return next(err);
+    }
+});
+
 
 router.get("/:id", async (req, res, next) => {
     try {

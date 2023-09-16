@@ -4,7 +4,6 @@ import PrepListApi from "../api/api";
 import LoadingSpinner from "../common/Loading";
 import IngredientCardList from "../ingredient/IngredientCardList";
 import NewIngredientForm from "../ingredient/NewIngredientForm";
-import NewRecipeForm from "./NewRecipeForm";
 
 function RecipeDetail() {
     const { id } = useParams();
@@ -33,7 +32,6 @@ function RecipeDetail() {
             <p>{recipe.instruction}</p>
             <IngredientCardList ingredient={recipe.ingredient} />
             <NewIngredientForm />
-            <NewRecipeForm />
         </div>
     );
 }

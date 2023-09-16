@@ -5,6 +5,7 @@ import RecipeList from "../recipe/RecipeList";
 import LoginForm from "../auth/LoginForm";
 import SignupForm from "../auth/SignupForm";
 import RecipeDetail from "../recipe/RecipeDetail";
+import IngredientList from "../ingredient/IngredientList";
 
 function Routes({ login, signup }) {
     console.debug(
@@ -30,6 +31,9 @@ function Routes({ login, signup }) {
                 </Route>
                 <Route exact path="/recipes/:id">
                     <RecipeDetail />
+                </Route>
+                <Route exact path="/ingredients">
+                    <IngredientList />
                 </Route>
                 <Redirect to="/" />
             </Switch>

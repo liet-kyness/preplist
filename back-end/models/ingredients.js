@@ -14,15 +14,14 @@ class Ingredient {
         return ingredient;
     }
 
-    static async getIngredients(name, id) {
+    static async getIngredients() {
         const res = await db.query(
             `SELECT name, id
              FROM ingredient
-             WHERE name = ANY($1::text[])`,
-             [name, id],
+             ORDER BY name`,
         );
 
-        return res;
+        return res.rows;
     }
 
     static async addIngredientToRecipe(data) {

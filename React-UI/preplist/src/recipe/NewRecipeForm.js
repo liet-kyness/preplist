@@ -6,7 +6,8 @@ function NewRecipeForm({ recipe }) {
     const history = useHistory();
     const [formData, setFormData] = useState({
         name: "",
-        instruction: ""
+        instruction: "",
+        
     });
     const [formErrors, setFormErrors] = useState([]);
     console.debug(

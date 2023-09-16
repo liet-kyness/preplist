@@ -21,4 +21,22 @@ function IngredientCardList({ ingredient }) {
     );
 }
 
+// function AllIngredientCardList({ ingredient }) {
+//     console.debug(
+//         "IngredientCardsList",
+//         "ingredient=", ingredient
+//     );
+
+//     return (
+//         <div className="IngredientsCardsList">
+//             {ingredient.map(i => (
+//                 <IngredientCards key={i.id}
+//                                  id={i.id}
+//                                  ingredient={i.ingredient}
+//                 />
+//             ))}
+//         </div>
+//     )
+// }
+
 export default IngredientCardList;

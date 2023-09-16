@@ -20,6 +20,11 @@ function Nav({ logout }) {
                     </NavLink>
                 </li>
                 <li className="nav-item mr-4">
+                    <NavLink className="nav-link" to="/ingredients">
+                        Ingredients
+                    </NavLink>
+                </li>
+                <li className="nav-item mr-4">
                     <NavLink className="nav-link" to="/" onClick={logout}>
                         LogOut
                     </NavLink>

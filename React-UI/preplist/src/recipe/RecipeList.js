@@ -3,7 +3,7 @@ import SearchForm from "../common/SearchForm";
 import PrepListApi from "../api/api";
 import RecipeCard from "./RecipeCard"
 import LoadingSpinner from "../common/Loading";
-//import Recipe from "../../../../back-end/models/recipes";
+import NewRecipeForm from "./NewRecipeForm";
 
 function RecipeList() {
     console.debug("Recipe List");
@@ -24,6 +24,7 @@ function RecipeList() {
 
     return (
         <div className="RecipeList col-md-8 offset-md-2">
+            <div>
             <SearchForm searchFor={search} />
             {recipes.length ? (
                 <div className="RecipeList-list">
@@ -37,6 +38,8 @@ function RecipeList() {
             ) : (
                 <p className="lead">No results found</p>
             )}
+            <NewRecipeForm />
+            </div>
         </div>
     );
 }
