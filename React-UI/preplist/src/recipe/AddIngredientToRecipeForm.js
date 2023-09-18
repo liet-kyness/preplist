@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-//import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import PrepListApi from "../api/api";
 
 
 
 function AddIngredientToRecipe() {
-    //const recId = useParams();
-    //const recipeId = recId.id;
+    const recId = useParams();
+    const recipeId = recId.id;
     const [ingredients, setIngredients] = useState([]);
-    //const [ingredientId, setIngredientId] = useState(null);
+    const [ingredientId, setIngredientId] = useState(null);
     const [units, setUnits] = useState([]);
-    //const [unitId, setUnitId] = useState(null);
-    //const [amount, setAmount] = useState("");
+    const [unitId, setUnitId] = useState(null);
+    const [amount, setAmount] = useState("");
 
     const [formData, setFormData] = useState({
         recipeId: "",
@@ -20,6 +20,13 @@ function AddIngredientToRecipe() {
         amount: ""
     });
 
+    useEffect(() => {
+        function setRecipeIdOnMount() {
+            setFormData(data => ({ ...data, recipeId: recipeId }));
+        };
+        setRecipeIdOnMount();
+    }, []);
+    
     useEffect(function populateIngredientsOnMount() {
         console.debug("populateIngredientsOnMount");
         searchIngredients();
@@ -41,26 +48,29 @@ function AddIngredientToRecipe() {
         setIngredients(ingredients);
     };
 
-    // function handleIngredientChange(e) {
-    //     const inputIngredient = e.target.value;
-    //     setIngredientId(inputIngredient);
-    //     console.log("inputIngredient=", inputIngredient);
-    // };
+    function handleIngredientChange(e) {
+        const inputIngredient = e.target.value;
+        setIngredientId(inputIngredient);
+        setFormData(data => ({ ...data, ingredientId: inputIngredient }));
+        console.log("inputIngredient=", inputIngredient);
+    };
 
-    // function handleUnitChange(e) {
-    //     const inputUnit = e.target.value;
-    //     setUnitId(inputUnit);
-    //     console.log("inputUnit=", inputUnit);
-    // };
+    function handleUnitChange(e) {
+        const inputUnit = e.target.value;
+        setUnitId(inputUnit);
+        setFormData(data => ({ ...data, unitId: inputUnit }));
+        console.log("inputUnit=", inputUnit);
+    };
 
-    // function handleAmoutChange(e) {
-    //     const inputAmount = e.target.value;
-    //     setAmount(inputAmount);
-    //     console.log("inputAmount=", inputAmount);
-    // }
+    function handleAmountChange(e) {
+        const inputAmount = e.target.value;
+        setAmount(inputAmount);
+        setFormData(data => ({ ...data, amount: inputAmount }))
+        console.log("inputAmount=", inputAmount);
+    }
     function handleSubmit(e) {
         e.preventDefault();
-        //setFormData( { recipeId, ingredientId, unitId, amount });
+        setFormData( { recipeId, ingredientId, unitId, amount });
         console.log(formData);
         submitToApi();
 
@@ -69,19 +79,25 @@ function AddIngredientToRecipe() {
         let result = await PrepListApi.addIngredientToRecipe(formData);
         console.log("result=", result)
     }
+
+    // function handleFormChange(e) {
+    //     e.preventDefault();
+    //     setFormData({ recipeId, ingredientId, unitId, amount });
+    //     console.log("FormChangeData=", formData);
+    // }
     
-    // console.log("recipeId=", recipeId);
-    // //console.log("ingredientId=", ingredientId);
-    // console.log("unitId=", unitId);
-    // console.log("amount=", amount);
+    console.log("recipeId=", recipeId);
+    console.log("ingredientId=", ingredientId);
+    console.log("unitId=", unitId);
+    console.log("amount=", amount);
     console.log("formData=", formData)
 
-    function handleChange(e) {
-        const { name, value } = e.target;
-        console.log("target=", e.target,
-                    "name=", e.target.name);
-        setFormData(({ [name]: value }));
-    }
+    // function handleChange(e) {
+    //     const { name, value } = e.target;
+    //     console.log("target=", e.target,
+    //                 "name=", e.target.name);
+    //     setFormData(({ [name]: value }));
+    // }
     
     
 
@@ -93,22 +109,22 @@ function AddIngredientToRecipe() {
                     <div className="card-body">
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
-                                <select onChange={handleChange}>
+                                <select onChange={handleIngredientChange}>
                                     {ingredients.map(i => (
                                         <option name="ingredientId" key={i.id} id={i.id} value={i.id}>{i.name}</option>
                                     ))}
                                 </select>
-                                <select onChange={handleChange}>
+                                <select onChange={handleUnitChange}>
                                     {units.map(u => (
                                         <option name="unitId" key={u.id} id={u.id} value={u.id}>{u.name}</option>
                                     ))}
                                 </select>
                                 <input type="text"
                                        name="amount"
-                                       id={formData.amount} 
-                                       value={formData.amount} 
+                                       id={amount} 
+                                       value={amount} 
                                        placeholder="amount.."
-                                       onChange={handleChange} />
+                                       onChange={handleAmountChange} />
                             </div>
                             <button type="submit">Add</button>
                         </form>

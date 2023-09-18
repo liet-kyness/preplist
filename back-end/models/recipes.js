@@ -88,7 +88,7 @@ class Recipe {
     };
 
     static async addIngredientToRecipe(recipeId, ingredientId, unitId, amount) {
-        data.unit_id = data.unit_id.map((u) => u || null);
+        //data.unit_id = data.unit_id.map((u) => u || null);
         const res = await db.query(
             `INSERT INTO recipe_ingredient (recipe_id, ingredient_id, unit_id, amount)
              SELECT * FROM UNNEST ($1::int[], $2::int[], $3::int[], $4::int[])`,
