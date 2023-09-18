@@ -62,6 +62,15 @@ router.get("/:id", async (req, res, next) => {
     }
 });
 
+router.post("/add-ingredient", async (req, res, next) => {
+    try {
+        const newIngredient = await Recipe.addIngredientToRecipe(req.body);
+        return res.status(201).json({ newIngredient });
+    } catch (err) {
+        return next(err);
+    }
+});
+
 
 
 

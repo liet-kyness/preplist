@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+//import { useParams } from "react-router-dom";
 import PrepListApi from "../api/api";
 
 
 
 function AddIngredientToRecipe() {
-    const recId = useParams();
-    const recipeId = recId.id;
+    //const recId = useParams();
+    //const recipeId = recId.id;
     const [ingredients, setIngredients] = useState([]);
-    const [ingredientId, setIngredientId] = useState(null);
+    //const [ingredientId, setIngredientId] = useState(null);
     const [units, setUnits] = useState([]);
-    const [unitId, setUnitId] = useState(null);
-    const [amount, setAmount] = useState("");
+    //const [unitId, setUnitId] = useState(null);
+    //const [amount, setAmount] = useState("");
+
+    const [formData, setFormData] = useState({
+        recipeId: "",
+        ingredientId: "",
+        unitId: "",
+        amount: ""
+    });
 
     useEffect(function populateIngredientsOnMount() {
         console.debug("populateIngredientsOnMount");
@@ -34,28 +41,48 @@ function AddIngredientToRecipe() {
         setIngredients(ingredients);
     };
 
-    function handleIngredientChange(e) {
-        const inputIngredient = e.target.value;
-        setIngredientId(inputIngredient);
-        console.log("inputIngredient=", inputIngredient);
-    };
+    // function handleIngredientChange(e) {
+    //     const inputIngredient = e.target.value;
+    //     setIngredientId(inputIngredient);
+    //     console.log("inputIngredient=", inputIngredient);
+    // };
 
-    function handleUnitChange(e) {
-        const inputUnit = e.target.value;
-        setUnitId(inputUnit);
-        console.log("inputUnit=", inputUnit);
-    };
+    // function handleUnitChange(e) {
+    //     const inputUnit = e.target.value;
+    //     setUnitId(inputUnit);
+    //     console.log("inputUnit=", inputUnit);
+    // };
 
-    function handleAmoutChange(e) {
-        const inputAmount = e.target.value;
-        setAmount(inputAmount);
-        console.log("inputAmount=", inputAmount);
+    // function handleAmoutChange(e) {
+    //     const inputAmount = e.target.value;
+    //     setAmount(inputAmount);
+    //     console.log("inputAmount=", inputAmount);
+    // }
+    function handleSubmit(e) {
+        e.preventDefault();
+        //setFormData( { recipeId, ingredientId, unitId, amount });
+        console.log(formData);
+        submitToApi();
+
+    }
+    async function submitToApi() {
+        let result = await PrepListApi.addIngredientToRecipe(formData);
+        console.log("result=", result)
     }
     
-    console.log("recipeId=", recipeId);
-    console.log("ingredientId=", ingredientId);
-    console.log("unitId=", unitId);
-    console.log("amount=", amount);
+    // console.log("recipeId=", recipeId);
+    // //console.log("ingredientId=", ingredientId);
+    // console.log("unitId=", unitId);
+    // console.log("amount=", amount);
+    console.log("formData=", formData)
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+        console.log("target=", e.target,
+                    "name=", e.target.name);
+        setFormData(({ [name]: value }));
+    }
+    
     
 
     return (
@@ -64,25 +91,26 @@ function AddIngredientToRecipe() {
                 <h3 className="mb-3">Add ingredient</h3>
                 <div className="card">
                     <div className="card-body">
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div className="form-group">
-                                <select onChange={handleIngredientChange}>
+                                <select onChange={handleChange}>
                                     {ingredients.map(i => (
-                                        <option key={i.id} id={i.id} value={i.id}>{i.name}</option>
+                                        <option name="ingredientId" key={i.id} id={i.id} value={i.id}>{i.name}</option>
                                     ))}
                                 </select>
-                                <select onChange={handleUnitChange}>
+                                <select onChange={handleChange}>
                                     {units.map(u => (
-                                        <option key={u.id} id={u.id} value={u.id}>{u.name}</option>
+                                        <option name="unitId" key={u.id} id={u.id} value={u.id}>{u.name}</option>
                                     ))}
                                 </select>
                                 <input type="text"
-                                       id={amount} 
-                                       value={amount} 
+                                       name="amount"
+                                       id={formData.amount} 
+                                       value={formData.amount} 
                                        placeholder="amount.."
-                                       onChange={handleAmoutChange} />
+                                       onChange={handleChange} />
                             </div>
-
+                            <button type="submit">Add</button>
                         </form>
                     </div>
                 </div>

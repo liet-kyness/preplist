@@ -73,7 +73,8 @@ class PrepListApi {
     }
 
     static async addIngredientToRecipe(data) {
-        let res = await this.request(`recipes/add`, data, "post");
+        let res = await this.request(`recipes/add-ingredient`, data, "post");
+        console.log("res=", res);
         return res;
     }
 };
