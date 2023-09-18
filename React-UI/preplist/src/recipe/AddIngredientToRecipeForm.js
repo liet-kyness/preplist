@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import PrepListApi from "../api/api";
 
 
@@ -12,6 +12,7 @@ function AddIngredientToRecipe() {
     const [units, setUnits] = useState([]);
     const [unitId, setUnitId] = useState(null);
     const [amount, setAmount] = useState("");
+    const history = useHistory();
 
     const [formData, setFormData] = useState({
         recipeId: "",
@@ -22,11 +23,11 @@ function AddIngredientToRecipe() {
 
     useEffect(() => {
         function setRecipeIdOnMount() {
-            setFormData(data => ({ ...data, recipeId: recipeId }));
+            setFormData(data => ({ ...data, recipeId: parseInt(recipeId) }));
         };
         setRecipeIdOnMount();
     }, []);
-    
+
     useEffect(function populateIngredientsOnMount() {
         console.debug("populateIngredientsOnMount");
         searchIngredients();
@@ -51,28 +52,28 @@ function AddIngredientToRecipe() {
     function handleIngredientChange(e) {
         const inputIngredient = e.target.value;
         setIngredientId(inputIngredient);
-        setFormData(data => ({ ...data, ingredientId: inputIngredient }));
+        setFormData(data => ({ ...data, ingredientId: parseInt(inputIngredient) }));
         console.log("inputIngredient=", inputIngredient);
     };
 
     function handleUnitChange(e) {
         const inputUnit = e.target.value;
         setUnitId(inputUnit);
-        setFormData(data => ({ ...data, unitId: inputUnit }));
+        setFormData(data => ({ ...data, unitId: parseInt(inputUnit) }));
         console.log("inputUnit=", inputUnit);
     };
 
     function handleAmountChange(e) {
         const inputAmount = e.target.value;
         setAmount(inputAmount);
-        setFormData(data => ({ ...data, amount: inputAmount }))
+        setFormData(data => ({ ...data, amount: parseInt(inputAmount) }))
         console.log("inputAmount=", inputAmount);
     }
     function handleSubmit(e) {
         e.preventDefault();
-        setFormData( { recipeId, ingredientId, unitId, amount });
-        console.log(formData);
+        console.log("formdataarray=", formData);
         submitToApi();
+        history.go(0);
 
     }
     async function submitToApi() {

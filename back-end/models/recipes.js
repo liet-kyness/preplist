@@ -87,16 +87,16 @@ class Recipe {
         return res.rows;
     };
 
-    static async addIngredientToRecipe(recipeId, ingredientId, unitId, amount) {
+    static async addIngredientToRecipe({ recipeId, ingredientId, unitId, amount}) {
         //data.unit_id = data.unit_id.map((u) => u || null);
         const res = await db.query(
             `INSERT INTO recipe_ingredient (recipe_id, ingredient_id, unit_id, amount)
-             SELECT * FROM UNNEST ($1::int[], $2::int[], $3::int[], $4::int[])`,
-             [
-                recipeId, ingredientId, unitId, amount
-             ]);
+             VALUES ($1, $2, $3, $4)
+             RETURNING recipe_id AS "recipeId", ingredient_id AS "ingredientId", unit_id AS "unitId", amount`,
+             [recipeId, ingredientId, unitId, amount]);
+        let ingredient = res.rows;
         
-        return res;
+        return ingredient;
     }
 }
 

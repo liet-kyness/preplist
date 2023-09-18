@@ -65,6 +65,8 @@ router.get("/:id", async (req, res, next) => {
 router.post("/add-ingredient", async (req, res, next) => {
     try {
         const newIngredient = await Recipe.addIngredientToRecipe(req.body);
+        console.log(req.body);
+        console.log(newIngredient);
         return res.status(201).json({ newIngredient });
     } catch (err) {
         return next(err);
