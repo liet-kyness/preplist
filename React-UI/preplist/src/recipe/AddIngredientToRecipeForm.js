@@ -11,6 +11,7 @@ function AddIngredientToRecipe() {
     const [ingredientId, setIngredientId] = useState(null);
     const [units, setUnits] = useState([]);
     const [unitId, setUnitId] = useState(null);
+    const [amount, setAmount] = useState("");
 
     useEffect(function populateIngredientsOnMount() {
         console.debug("populateIngredientsOnMount");
@@ -44,10 +45,17 @@ function AddIngredientToRecipe() {
         setUnitId(inputUnit);
         console.log("inputUnit=", inputUnit);
     };
+
+    function handleAmoutChange(e) {
+        const inputAmount = e.target.value;
+        setAmount(inputAmount);
+        console.log("inputAmount=", inputAmount);
+    }
     
     console.log("recipeId=", recipeId);
     console.log("ingredientId=", ingredientId);
     console.log("unitId=", unitId);
+    console.log("amount=", amount);
     
 
     return (
@@ -68,6 +76,11 @@ function AddIngredientToRecipe() {
                                         <option key={u.id} id={u.id} value={u.id}>{u.name}</option>
                                     ))}
                                 </select>
+                                <input type="text"
+                                       id={amount} 
+                                       value={amount} 
+                                       placeholder="amount.."
+                                       onChange={handleAmoutChange} />
                             </div>
 
                         </form>
