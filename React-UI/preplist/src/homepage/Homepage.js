@@ -24,7 +24,7 @@ function Homepage() {
                             SignUp
                         </Link>
                     </p>
-                    )};
+                    )}
             </div>
         </div>
     );

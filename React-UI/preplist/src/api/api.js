@@ -52,6 +52,11 @@ class PrepListApi {
         return res.ingredient;
     };
 
+    static async getAllIngredients() {
+        let res = await this.request(`ingredients`);
+        return res;
+    }
+
     static async newRecipe(data) {
         let res = await this.request(`recipes/new`, data, "post");
         return res;
@@ -60,6 +65,11 @@ class PrepListApi {
     static async newIngredient(data) {
         let res = await this.request(`ingredients/new`, data, "post");
         return res.name;
+    }
+
+    static async addIngredientToRecipe(data) {
+        let res = await this.request(`recipes/add`, data, "post");
+        return res;
     }
 };
 

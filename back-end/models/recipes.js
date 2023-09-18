@@ -57,6 +57,16 @@ class Recipe {
         return res;
     }
 
+    // static async getIngredients() {
+    //     const res = await db.query(
+    //         `SELECT name, id
+    //         FROM ingredient
+    //         ORDER BY name`
+    //     );
+    //     return res.rows;
+    // };
+    
+    
     static async getIngredients(name) {
         const res = await db.query(
             `SELECT * FROM ingredient
