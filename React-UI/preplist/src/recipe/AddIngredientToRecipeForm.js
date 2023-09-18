@@ -5,7 +5,7 @@ import PrepListApi from "../api/api";
 
 
 function AddIngredientToRecipe() {
-    const [ingredients, setIngredients] = useState(null);
+    const [ingredients, setIngredients] = useState([]);
 
     useEffect(function populateIngredientsOnMount() {
         console.debug("populateIngredientsOnMount");
@@ -34,7 +34,9 @@ function AddIngredientToRecipe() {
                         <form>
                             <div className="form-group">
                                 <select>
-                                    <option>ingredient</option>
+                                    {ingredients.map(i => (
+                                        <option>{i.name}</option>
+                                    ))}
                                 </select>
                             </div>
 
