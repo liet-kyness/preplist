@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-//import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import PrepListApi from "../api/api";
 
 
 
 function AddIngredientToRecipe() {
+    const recId = useParams();
+    const recipeId = recId.id;
     const [ingredients, setIngredients] = useState([]);
     const [ingredientId, setIngredientId] = useState(null);
     const [units, setUnits] = useState([]);
@@ -43,8 +45,10 @@ function AddIngredientToRecipe() {
         console.log("inputUnit=", inputUnit);
     };
     
+    console.log("recipeId=", recipeId);
     console.log("ingredientId=", ingredientId);
     console.log("unitId=", unitId);
+    
 
     return (
         <div className="addIngredientsToRecipe">
