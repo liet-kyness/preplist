@@ -41,7 +41,9 @@ class Ingredient {
 
     static async getAllUnits() {
         const res = await db.query(
-            `SELECT * FROM unit`
+            `SELECT name, id
+             FROM unit
+             ORDER BY name`
         );
         return res.rows;
     }

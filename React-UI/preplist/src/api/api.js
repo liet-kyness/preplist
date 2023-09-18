@@ -57,6 +57,11 @@ class PrepListApi {
         return res;
     }
 
+    static async getUnits(unit) {
+        let res = await this.request(`ingredients/units`, { unit });
+        return res.unit;
+    }
+
     static async newRecipe(data) {
         let res = await this.request(`recipes/new`, data, "post");
         return res;

@@ -77,6 +77,7 @@ class Recipe {
         return res.rows;
     };
 
+
     static async getAllUnits() {
         const res = await db.query(
             `SELECT id, name

@@ -35,6 +35,16 @@ router.get("/", async (req, res, next) => {
     }
 });
 
+router.get("/units", async(req, res, next) => {
+    const q = req.query;
+    try {
+        const unit = await Ingredient.getAllUnits(q);
+        return res.json({ unit });
+    } catch (err) {
+        return next(err);
+    }
+});
+
 
 router.get("/:id", async (req, res, next) => {
     try {

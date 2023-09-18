@@ -6,24 +6,45 @@ import PrepListApi from "../api/api";
 
 function AddIngredientToRecipe() {
     const [ingredients, setIngredients] = useState([]);
+    const [ingredientId, setIngredientId] = useState(null);
+    const [units, setUnits] = useState([]);
+    const [unitId, setUnitId] = useState(null);
 
     useEffect(function populateIngredientsOnMount() {
         console.debug("populateIngredientsOnMount");
-        search();
+        searchIngredients();
     }, []);
     console.log("ingredients=", ingredients);
 
-    async function search(ingredient) {
+    useEffect(function populateUnitsOnMount() {
+        console.debug("populateUnitsOnMount");
+        searchUnits();
+    }, []);
+
+    async function searchUnits(unit) {
+        let units = await PrepListApi.getUnits(unit);
+        setUnits(units);
+    };
+
+    async function searchIngredients(ingredient) {
         let ingredients = await PrepListApi.getIngredients(ingredient);
         setIngredients(ingredients);
     };
 
-    // function handleChange(e) {
-    //     e.preventDefault()
-    //     setIngredientId(e.target.value);
-    //     console.log(ingredientId);
-    // };
+    function handleIngredientChange(e) {
+        const inputIngredient = e.target.value;
+        setIngredientId(inputIngredient);
+        console.log("inputIngredient=", inputIngredient);
+    };
+
+    function handleUnitChange(e) {
+        const inputUnit = e.target.value;
+        setUnitId(inputUnit);
+        console.log("inputUnit=", inputUnit);
+    };
     
+    console.log("ingredientId=", ingredientId);
+    console.log("unitId=", unitId);
 
     return (
         <div className="addIngredientsToRecipe">
@@ -33,9 +54,14 @@ function AddIngredientToRecipe() {
                     <div className="card-body">
                         <form>
                             <div className="form-group">
-                                <select>
+                                <select onChange={handleIngredientChange}>
                                     {ingredients.map(i => (
-                                        <option>{i.name}</option>
+                                        <option key={i.id} id={i.id} value={i.id}>{i.name}</option>
+                                    ))}
+                                </select>
+                                <select onChange={handleUnitChange}>
+                                    {units.map(u => (
+                                        <option key={u.id} id={u.id} value={u.id}>{u.name}</option>
                                     ))}
                                 </select>
                             </div>
